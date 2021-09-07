@@ -1,0 +1,191 @@
+var outs = 0;
+var hit = 0;
+var runs = 0;
+var runCount;
+var outCount;
+var firstBase;
+var firstBaseColor = 0;
+var thirdBase;
+var thirdBaseColor = 0;
+var secondBase;
+var secondBaseColor = 0;
+function start(){
+baseballField();
+bases();
+outCounter();
+runCounter();
+mouseClickMethod(game);
+}
+function game(){
+if(outs < 3 ){
+var outcome = readBoolean("Did the batter strikeout? ");
+if(outcome == true){
+outs++;
+outCount.setText("Outs : " + outs);
+}else{
+var onBase = readBoolean("is the batter on base?");
+if(onBase == false){
+outs++;
+outCount.setText("Outs : " + outs);
+}else{
+hit = readInt("How many bases did the batter run?");
+}
+if(hit == 1){
+if(thirdBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+thirdBase.setColor(Color.white);
+thirdBaseColor = 0;
+}
+if(secondBaseColor == 1){
+thirdBase.setColor(Color.red);
+thirdBaseColor = 1;
+secondBase.setColor(Color.white);
+secondBaseColor = 0;
+}
+if(firstBaseColor == 1){
+secondBase.setColor(Color.red);
+secondBaseColor = 1;
+firstBase.setColor(Color.white);
+firstBaseColor = 0;
+}
+firstBase.setColor(Color.red);
+firstBaseColor = 1;
+hit = 0;
+}
+if(hit == 2){
+if(thirdBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+thirdBase.setColor(Color.white);
+thirdBaseColor = 0;
+}
+if(secondBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+secondBase.setColor(Color.white);
+secondBaseColor = 0;
+}
+if(firstBaseColor == 1){
+thirdBase.setColor(Color.red);
+thirdBaseColor = 1;
+firstBase.setColor(Color.white);
+firstBaseColor = 0;
+}
+secondBase.setColor(Color.red);
+secondBaseColor = 1;
+hit = 0;
+}
+if(hit == 3){
+if(thirdBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+thirdBase.setColor(Color.white);
+thirdBaseColor = 0;
+}
+if(secondBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+secondBase.setColor(Color.white);
+secondBaseColor = 0;
+}
+if(firstBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+firstBase.setColor(Color.white);
+firstBaseColor = 0;
+}
+thirdBase.setColor(Color.red);
+thirdBaseColor = 1;
+hit = 0;
+}
+if(hit == 4){
+if(thirdBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+thirdBase.setColor(Color.white);
+thirdBaseColor = 0;
+}
+if(secondBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+secondBase.setColor(Color.white);
+secondBaseColor =0;
+}
+if(firstBaseColor == 1){
+runs++;
+runCount.setText("Runs : " + runs);
+firstBase.setColor(Color.white);
+firstBaseColor = 0;
+}
+runs++;
+runCount.setText("Runs : " + runs);
+hit = 0;
+} if(hit >= 5){
+println("invalid response");
+}
+}
+}else{
+println("Thats the end of this inning!");
+removeAll();
+}
+}
+function runCounter(){
+runCount = new Text("Runs : " + runs,"15pt Arial");
+runCount.setPosition(0,40);
+add(runCount);
+}
+function outCounter(){
+outCount = new Text("Outs : " + outs,"15pt Arial");
+outCount.setPosition(0,15);
+add(outCount);
+}
+function bases(){
+firstBase = new Rectangle(25,25);
+firstBase.setPosition(getWidth()*5/6-25,getHeight()/2);
+firstBase.setColor(Color.white);
+thirdBase = new Rectangle(25,25);
+thirdBase.setPosition(getWidth()*1/6,getHeight()/2);
+thirdBase.setColor(Color.white);
+secondBase = new Rectangle(25,25);
+secondBase.setPosition(getWidth()/2 - 12.5 ,getHeight()/3);
+secondBase.setColor(Color.white);
+add(firstBase);
+add(secondBase);
+add(thirdBase);
+}
+function baseballField(){
+var homePlate = new Rectangle(25,25);
+homePlate.setPosition(getWidth()/2 - 12.5, getHeight() - 25);
+homePlate.setRotation(45);
+var rBaseline = new Line(getWidth()/2, getHeight(), getWidth(),
+getHeight()/2);
+var lBaseline = new Line(getWidth()/2, getHeight(), 0, getHeight()/2);
+var infield = new Arc(getWidth()/2,0,180,0);
+infield.setPosition(getWidth()/2, getHeight()*2/3);
+var lFoulZone = new
+Rectangle(Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()
+/2)),Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()/2)))
+;
+lFoulZone.setPosition(-
+Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()/2))/1.85,
+Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()/2)));
+lFoulZone.setColor(Color.white);
+lFoulZone.setRotation(50,0);
+var rFoulZone = new
+Rectangle(Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()
+/2)),Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2*getHeight()/2)))
+;
+rFoulZone.setPosition(Math.sqrt((getWidth()/2*getWidth()/2)+(getHeight()/2
+rFoulZone.setColor(Color.white);
+rFoulZone.setRotation(40,0);
+add(homePlate);
+add(infield);
+add(lFoulZone);
+add(rFoulZone);
+add(rBaseline);
+add(lBaseline);
+}
+
+
+
